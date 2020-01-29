@@ -1,0 +1,61 @@
+-- export enhanced_log_data to swissid_oidc_logs_april_to_sept_2019.csv
+SELECT
+	ifnull(time_stamp, '-'),
+	ifnull(label_nr, '-1'),
+	ifnull(date_day, '-1'),
+	ifnull(date_month, '-'),
+	ifnull(date_month_nr, '-1'),
+	ifnull(date_year, '-1'),
+	ifnull(date_hour, '-1'),
+	ifnull(date_minute, '-1'),
+	ifnull(date_second, '-1'),
+	-- ifnull(transaction_id, '-'),
+	-- ifnull(tracking_ids, '-'),
+	ifnull(src_ip, '-'),
+	ifnull(src_software_name, '-'),
+	ifnull(src_operating_system_name, '-'),
+	ifnull(src_software_type, '-'),
+	ifnull(src_software_sub_type, '-'),
+	ifnull(src_hardware_type, '-'),
+	ifnull(src_hardware_sub_type, '-'),
+	ifnull(dest_ip, '-'),
+	ifnull(uri_path, '-'),
+	ifnull(http_method, '-'),
+	ifnull(request_operation, '-'),
+	ifnull(request_protocol, '-'),
+	-- ifnull(http_referrer, '-'),
+	ifnull(response_status, '-'),
+	ifnull(response_status_code, '-'),
+	ifnull(response_detail_reason, '-'),
+	ifnull(response_time_ms, '-1'),
+	ifnull(oidc_response_type, '-'),
+	ifnull(oidc_acr_values, '-'),
+	ifnull(oidc_login_hint, '-'),
+	ifnull(oidc_client_id, '-'),
+	ifnull(client_type, '-'),
+	ifnull(oidc_scopes, '-'),
+	ifnull(oidc_ui_locales, '-'),
+	ifnull(ido_id, '-'),
+	ifnull(ido_type, '-'),
+	ifnull(ido_email, '-'),
+	ifnull(client_name, '-'),
+	ifnull(am_realm, '-'),
+	ifnull(am_component, '-'),
+	ifnull(loc_country, '-'),
+	ifnull(loc_region, '-'),
+	ifnull(loc_city, '-'),
+	ifnull(loc_country_code, '-'),
+	ifnull(loc_latitude, '-1'),
+	ifnull(loc_longitude, '-1'),
+	ifnull(loc_zip_code, '-'),
+	ifnull(loc_time_zone, '-'),
+	ifnull(ldap_user, '-')
+	-- ifnull(user_agent, '-'),
+	-- ifnull(http_query_parameters, '-')
+INTO OUTFILE '/tmp/swissid_oidc_logs_april_to_sept_2019.csv'
+FIELDS TERMINATED BY '\t' 
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+FROM enhanced_log_data
+where date_month_nr > 3
+order by time_stamp;

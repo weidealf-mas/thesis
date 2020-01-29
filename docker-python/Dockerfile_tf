@@ -1,0 +1,12 @@
+FROM swisssign/python3-alpine10:pyarrow_0.14.1
+
+RUN apk add --no-cache \
+            --allow-untrusted \
+            --repository \
+            http://dl-3.alpinelinux.org/alpine/edge/testing \
+            hdf5 \
+            hdf5-dev
+
+RUN pip install https://github.com/AfsmNGhr/alpine-tensorflow/releases/download/tensorflow-1.13.2/tensorflow-1.13.2-cp37-cp37m-linux_x86_64.whl
+RUN pip install --no-cache-dir keras==2.2.5
+

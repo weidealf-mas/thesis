@@ -1,0 +1,40 @@
+version: "3.1"
+
+services:
+
+  identity-provider:
+    network_mode: fdp-infrastructure_fdp-net
+    image: swisssign/identity-provider
+    container_name: identity-provider
+    volumes:
+      - $CODE_BASE_DIR/shared:/shared
+    ports:
+      - "5050:8080"
+    restart: unless-stopped
+    labels:
+      org.label-schema.group: "anomaly-detection"
+
+  anomaly-detector:
+    network_mode: fdp-infrastructure_fdp-net
+    image: swisssign/anomaly-detector
+    container_name: anomaly-detector
+    ports:
+      - "4050:4040"
+    volumes:
+      - $CODE_BASE_DIR/shared:/shared
+    environment:
+      ENABLE_INIT_DAEMON: "false"
+    restart: unless-stopped
+    labels:
+      org.label-schema.group: "anomaly-detection"
+
+  audit-event-service:
+    network_mode: fdp-infrastructure_fdp-net
+    image: swisssign/audit-event-service
+    container_name: audit-event-service
+    ports:
+      - "5051:8080"
+    restart: unless-stopped
+    labels:
+      org.label-schema.group: "anomaly-detection"
+

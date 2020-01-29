@@ -1,0 +1,26 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: "identity-provider"
+  kafka:
+    producer:
+      #bootstrap-servers: kafka.home.net:9092
+      bootstrap-servers: kafka-server:29092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      topic: idp-events
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,metrics,prometheus"
+
+  endpoint:
+    health:
+      show-details: "always"
+
+  metrics:
+    tags:
+      application: ${spring.application.name}
